@@ -1,14 +1,18 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { StoryService } from './providers/story.service';
-import { async } from 'rxjs/internal/scheduler/async';
 import { StoryDto } from './dto/story.dto';
 
-@Controller('story')
+@Controller('stories')
 export class StoryController {
   constructor(private readonly storyService: StoryService) {}
 
-  @Post()
-  async create(@Body() storyDto: StoryDto) {
-    return this.storyService.create(storyDto);
+  @Post('add')
+  async addStory(@Body() storyDto: StoryDto) {
+    return this.storyService.addStory(storyDto);
+  }
+
+  @Get()
+  async getStories() {
+    return this.storyService.getStories();
   }
 }
