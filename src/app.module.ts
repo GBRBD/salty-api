@@ -5,7 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb://gbrbd:almafa12@ds239055.mlab.com:39055/salty',
+      // 'mongodb://gbrbd:almafa12@ds239055.mlab.com:39055/salty',
+      'mongodb://localhost:27017/salty',
       { useNewUrlParser: true },
     ),
     FeatureModule,
