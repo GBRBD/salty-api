@@ -24,4 +24,9 @@ export class StoryService {
     const createdStory = new this.storyModel(storyDto);
     return await createdStory.save();
   }
+
+  async editStory(id: string, storyDto: StoryDto) {
+    await this.storyModel.findOneAndUpdate({ _id: id }, storyDto);
+    return await this.storyModel.findById(id);
+  }
 }
