@@ -10,13 +10,18 @@ export class StoryService {
     @InjectModel('Story') private readonly storyModel: Model<Story>,
   ) {}
 
-  async addStory(storyDto: StoryDto): Promise<Story> {
-    const createdStory = new this.storyModel(storyDto);
-    return await createdStory.save();
+  async getStories() {
+    const stories: StoryDto[] = await this.storyModel.find();
+    return stories;
   }
 
-  async getStories() {
-    const stories = await this.storyModel.find();
-    return stories;
+  async getStory(id: string) {
+    const story: StoryDto = await this.storyModel.findById(id);
+    return story;
+  }
+
+  async createStory(storyDto: StoryDto): Promise<Story> {
+    const createdStory = new this.storyModel(storyDto);
+    return await createdStory.save();
   }
 }
