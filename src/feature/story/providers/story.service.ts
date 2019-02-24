@@ -25,8 +25,13 @@ export class StoryService {
     return await createdStory.save();
   }
 
-  async editStory(id: string, storyDto: StoryDto) {
-    await this.storyModel.findOneAndUpdate({ _id: id }, storyDto);
-    return await this.storyModel.findById(id);
+  async deleteStory(storyDto: StoryDto) {
+    await this.storyModel.findOneAndDelete({ _id: storyDto._id });
+    return { message: 'deleted' };
+  }
+
+  async editStory(storyDto: StoryDto) {
+    await this.storyModel.findOneAndUpdate({ _id: storyDto._id }, storyDto);
+    return await this.storyModel.findById(storyDto._id);
   }
 }

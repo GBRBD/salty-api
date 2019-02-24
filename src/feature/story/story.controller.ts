@@ -21,8 +21,13 @@ export class StoryController {
     return this.storyService.createStory(storyDto);
   }
 
-  @Put('edit/:id')
-  async editStory(@Param('id') id, @Body() storyDto: StoryDto) {
-    return this.storyService.editStory(id, storyDto);
+  @Post('delete')
+  async deleteStory(@Body() storyDto: StoryDto) {
+    return this.storyService.deleteStory(storyDto);
+  }
+
+  @Put('edit/')
+  async editStory(@Body() storyDto: StoryDto) {
+    return this.storyService.editStory(storyDto);
   }
 }
