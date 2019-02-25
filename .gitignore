@@ -31,5 +31,5 @@ yarn-error.log
 /.nyc_output
 build/config\.gypi
 
-.env
 /dist
+nodemon.json

@@ -2,5 +2,8 @@
   "watch": ["src"],
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
-  "exec": "ts-node -r tsconfig-paths/register src/main.ts"
+  "exec": "ts-node -r tsconfig-paths/register src/main.ts",
+  "env": {
+    "MONGO_URI": "mongodb://gbrbd:almafa12@ds239055.mlab.com:39055/salty"
+  }
 }
