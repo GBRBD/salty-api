@@ -6,19 +6,14 @@ import { ConfigService } from './config.service';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(new ConfigService(env()).get('MONGO'), {
-      useNewUrlParser: true,
-    }),
+    MongooseModule.forRoot(
+      process.env.MONGO || new ConfigService('development.env').get('MONGO'),
+      {
+        useNewUrlParser: true,
+      },
+    ),
     FeatureModule,
     ConfigModule,
   ],
 })
 export class AppModule {}
-
-function env() {
-  if (!process.env.NODE_ENV) {
-    return 'development.env';
-  } else {
-    return `${process.env.NODE_ENV}.env`;
-  }
-}
