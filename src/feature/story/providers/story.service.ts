@@ -11,12 +11,12 @@ export class StoryService {
   ) {}
 
   async getStories() {
-    const stories: StoryDto[] = await this.storyModel.find();
+    const stories = await this.storyModel.find();
     return stories;
   }
 
   async getStory(id: string) {
-    const story: StoryDto = await this.storyModel.findById(id);
+    const story = await this.storyModel.findById(id);
     return story;
   }
 
