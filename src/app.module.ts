@@ -1,15 +1,24 @@
 import { Module } from '@nestjs/common';
 import { FeatureModule } from './feature/feature.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from './config.module';
+import { ConfigService } from './config.service';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb://gbrbd:almafa12@ds239055.mlab.com:39055/salty',
-      // 'mongodb://localhost:27017/salty',
-      { useNewUrlParser: true },
-    ),
+    MongooseModule.forRoot(new ConfigService(env()).get('MONGO'), {
+      useNewUrlParser: true,
+    }),
     FeatureModule,
+    ConfigModule,
   ],
 })
 export class AppModule {}
+
+function env() {
+  if (!process.env.NODE_ENV) {
+    return 'development.env';
+  } else {
+    return `${process.env.NODE_ENV}.env`;
+  }
+}

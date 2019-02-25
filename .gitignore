@@ -31,4 +31,4 @@ yarn-error.log
 /.nyc_output
 build/config\.gypi
 
-.env
+*.env
