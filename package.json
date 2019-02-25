@@ -5,6 +5,7 @@
   "author": "GBRBD",
   "license": "MIT",
   "scripts": {
+    "postinstall": "tsc -p tsconfig.build.json",
     "serve": "nodemon",
     "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
