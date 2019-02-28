@@ -33,3 +33,4 @@ build/config\.gypi
 
 /dist
 nodemon.json
+firebase.json

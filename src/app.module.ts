@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { FeatureModule } from './feature/feature.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -8,6 +9,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       useNewUrlParser: true,
     }),
     FeatureModule,
+    FirebaseModule,
   ],
 })
 export class AppModule {}
