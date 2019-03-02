@@ -26,7 +26,7 @@ export class StoryController {
     return this.storyService.deleteStory(storyDto);
   }
 
-  @Put('edit/')
+  @Put('edit')
   async editStory(@Body() storyDto: StoryDto) {
     return this.storyService.editStory(storyDto);
   }
