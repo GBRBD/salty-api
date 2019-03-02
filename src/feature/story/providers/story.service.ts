@@ -3,10 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { StoryDto } from '../dto/story.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Story } from '../interfaces/story.interface';
+import { FirebaseService } from 'src/firebase/firebase.service';
 
 @Injectable()
 export class StoryService {
   constructor(
+    private firebaseService: FirebaseService,
     @InjectModel('Story') private readonly storyModel: Model<Story>,
   ) {}
 
@@ -22,6 +24,7 @@ export class StoryService {
 
   async createStory(storyDto: StoryDto): Promise<Story> {
     const createdStory = new this.storyModel(storyDto);
+    createdStory.uid = this.firebaseService.firebaseUserId;
     return await createdStory.save();
   }
 

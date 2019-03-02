@@ -3,7 +3,6 @@ import * as admin from 'firebase-admin';
 
 @Injectable()
 export class FirebaseService {
-    
   private _firebaseUserId: string;
 
   get firebaseUserId(): string {
@@ -33,8 +32,10 @@ export class FirebaseService {
       });
 
     if (result) {
-      this._firebaseUserId = result.uid;
+      /* tslint:disable:no-string-literal */
+      this._firebaseUserId = result['uid'];
     }
+    /* tslint:disable:no-string-literal */
     return !!result['uid'].length;
   }
 
