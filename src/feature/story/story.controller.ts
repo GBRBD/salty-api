@@ -32,11 +32,13 @@ export class StoryController {
   }
 
   @Post('delete')
+  @UseGuards(AuthGuard)
   async deleteStory(@Body() storyDto: StoryDto) {
     return this.storyService.deleteStory(storyDto);
   }
 
   @Put('edit')
+  @UseGuards(AuthGuard)
   async editStory(@Body() storyDto: StoryDto) {
     return this.storyService.editStory(storyDto);
   }
