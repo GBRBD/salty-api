@@ -8,4 +8,5 @@ export const StorySchema = new mongoose.Schema({
     default: Date.now,
   },
   uid: { type: String, required: true },
+  username: { type: String },
 });

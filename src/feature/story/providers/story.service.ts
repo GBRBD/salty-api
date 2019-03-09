@@ -1,15 +1,18 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { StoryDto } from '../dto/story.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Story } from '../interfaces/story.interface';
 import { FirebaseService } from 'src/firebase/firebase.service';
+
+import { StoryDto } from '../dto/story.dto';
+import { Story } from '../interfaces/story.interface';
+import { User } from '../../user/interfaces/user.interface';
 
 @Injectable()
 export class StoryService {
   constructor(
     private firebaseService: FirebaseService,
     @InjectModel('Story') private readonly storyModel: Model<Story>,
+    @InjectModel('User') private readonly userModel: Model<User>,
   ) {}
 
   async getStories() {
@@ -24,7 +27,12 @@ export class StoryService {
 
   async createStory(storyDto: StoryDto): Promise<Story> {
     const createdStory = new this.storyModel(storyDto);
-    createdStory.uid = this.firebaseService.firebaseUserId;
+    const token = this.firebaseService.firebaseUserId;
+
+    const user = await this.userModel.findOne({ uid: token });
+    createdStory.username = user.username;
+    createdStory.uid = user.uid;
+
     // console.log(this.firebaseService.firebaseUserId);
     return await createdStory.save();
   }

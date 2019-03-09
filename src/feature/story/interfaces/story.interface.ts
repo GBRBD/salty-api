@@ -5,4 +5,5 @@ export interface Story extends Document {
   readonly title: string;
   readonly content: number;
   readonly uid: string;
+  readonly username: string;
 }

@@ -3,4 +3,5 @@ export class StoryDto {
   readonly title: string;
   readonly content: string;
   readonly uid: string;
+  readonly username: string;
 }
