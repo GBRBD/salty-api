@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FirebaseService } from 'src/firebase/firebase.service';
 
@@ -30,6 +30,7 @@ export class StoryService {
     const token = this.firebaseService.firebaseUserId;
 
     const user = await this.userModel.findOne({ uid: token });
+    console.log(user);
     createdStory.username = user.username;
     createdStory.uid = user.uid;
 
@@ -43,7 +44,16 @@ export class StoryService {
   }
 
   async editStory(storyDto: StoryDto) {
-    await this.storyModel.findOneAndUpdate({ _id: storyDto._id }, storyDto);
-    return await this.storyModel.findById(storyDto._id);
+    const token = this.firebaseService.firebaseUserId;
+    console.log('uid headerbol', token);
+    console.log('post uid', storyDto.uid);
+
+    if (token === storyDto.uid) {
+      await this.storyModel.findOneAndUpdate({ _id: storyDto._id }, storyDto);
+      return await this.storyModel.findById(storyDto._id);
+    } else {
+      console.log('Denied');
+      throw new UnauthorizedException();
+    }
   }
 }
