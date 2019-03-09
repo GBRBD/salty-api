@@ -25,6 +25,7 @@ export class StoryService {
   async createStory(storyDto: StoryDto): Promise<Story> {
     const createdStory = new this.storyModel(storyDto);
     createdStory.uid = this.firebaseService.firebaseUserId;
+    // console.log(this.firebaseService.firebaseUserId);
     return await createdStory.save();
   }
 
