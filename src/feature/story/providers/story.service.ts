@@ -33,7 +33,6 @@ export class StoryService {
     createdStory.username = user.username;
     createdStory.uid = user.uid;
 
-    // console.log(this.firebaseService.firebaseUserId);
     return await createdStory.save();
   }
 
