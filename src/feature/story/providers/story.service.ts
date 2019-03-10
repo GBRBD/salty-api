@@ -30,7 +30,6 @@ export class StoryService {
     const token = this.firebaseService.firebaseUserId;
 
     const user = await this.userModel.findOne({ uid: token });
-    console.log(user);
     createdStory.username = user.username;
     createdStory.uid = user.uid;
 
@@ -38,21 +37,25 @@ export class StoryService {
     return await createdStory.save();
   }
 
-  async deleteStory(storyDto: StoryDto) {
-    await this.storyModel.findOneAndDelete({ _id: storyDto._id });
-    return { message: 'deleted' };
+  async deleteStory(id: string) {
+    const token = this.firebaseService.firebaseUserId;
+    const story = await this.storyModel.findOne({ _id: id });
+
+    if (token === story.uid) {
+      await this.storyModel.findOneAndDelete({ _id: id });
+      return { message: 'deleted' };
+    } else {
+      throw new UnauthorizedException();
+    }
   }
 
   async editStory(storyDto: StoryDto) {
     const token = this.firebaseService.firebaseUserId;
-    console.log('uid headerbol', token);
-    console.log('post uid', storyDto.uid);
 
     if (token === storyDto.uid) {
       await this.storyModel.findOneAndUpdate({ _id: storyDto._id }, storyDto);
       return await this.storyModel.findById(storyDto._id);
     } else {
-      console.log('Denied');
       throw new UnauthorizedException();
     }
   }

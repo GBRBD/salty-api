@@ -6,6 +6,7 @@ import {
   Param,
   Put,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { StoryService } from './providers/story.service';
 import { StoryDto } from './dto/story.dto';
@@ -31,10 +32,10 @@ export class StoryController {
     return this.storyService.createStory(storyDto);
   }
 
-  @Post('delete')
+  @Delete('delete/:id')
   @UseGuards(AuthGuard)
-  async deleteStory(@Body() storyDto: StoryDto) {
-    return this.storyService.deleteStory(storyDto);
+  async deleteStory(@Param('id') id) {
+    return this.storyService.deleteStory(id);
   }
 
   @Put('edit')
