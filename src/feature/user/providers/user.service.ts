@@ -25,4 +25,14 @@ export class UserService {
       .sort({ date: -1 });
     return stories;
   }
+
+  async updateUserEmail(body) {
+    const token = this.firebaseService.firebaseUserId;
+
+    await this.userModel.findOneAndUpdate(
+      { uid: token },
+      { email: body.email },
+    );
+    return { message: 'successs' };
+  }
 }
