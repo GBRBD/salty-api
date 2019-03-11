@@ -22,7 +22,6 @@ export class UserController {
   @Put('updateemail')
   @UseGuards(AuthGuard)
   async updateUserEmail(@Body() body) {
-    console.log(body);
     return this.userService.updateUserEmail(body);
   }
 }
