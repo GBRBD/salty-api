@@ -16,7 +16,7 @@ export class StoryService {
   ) {}
 
   async getStories() {
-    const stories = await this.storyModel.find();
+    const stories = await this.storyModel.find().sort({ date: -1 });
     return stories;
   }
 
