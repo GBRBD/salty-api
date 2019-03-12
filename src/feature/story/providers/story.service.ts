@@ -58,4 +58,20 @@ export class StoryService {
       throw new UnauthorizedException();
     }
   }
+
+  async commentStory(id, body) {
+    const token = this.firebaseService.firebaseUserId;
+
+    const comment = {
+      commentUid: token,
+      comment: body.comment,
+      username: body.username,
+      date: Date.now(),
+    };
+    await this.storyModel.findByIdAndUpdate(id, {
+      $push: { comments: comment },
+    });
+
+    return { message: 'successs' };
+  }
 }

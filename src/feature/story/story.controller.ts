@@ -43,4 +43,10 @@ export class StoryController {
   async editStory(@Body() storyDto: StoryDto) {
     return this.storyService.editStory(storyDto);
   }
+
+  @Put('comment/:id')
+  @UseGuards(AuthGuard)
+  async commentStory(@Body() body, @Param('id') id) {
+    return this.storyService.commentStory(id, body);
+  }
 }

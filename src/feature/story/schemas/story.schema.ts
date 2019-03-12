@@ -9,4 +9,12 @@ export const StorySchema = new mongoose.Schema({
   },
   uid: { type: String, required: true },
   username: { type: String },
+  comments: [
+    {
+      commentUid: String,
+      comment: String,
+      date: Date,
+      username: String,
+    },
+  ],
 });
