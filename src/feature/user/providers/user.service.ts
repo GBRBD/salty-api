@@ -18,6 +18,13 @@ export class UserService {
     return await createdUser.save();
   }
 
+  async getUser(): Promise<User> {
+    const token = this.firebaseService.firebaseUserId;
+
+    const user = await this.userModel.findOne({ uid: token });
+    return user;
+  }
+
   async getUserStories() {
     const token = this.firebaseService.firebaseUserId;
     const stories = await this.storyModel
@@ -26,12 +33,27 @@ export class UserService {
     return stories;
   }
 
-  async updateUserEmail(body) {
+  async updateEmail(body) {
     const token = this.firebaseService.firebaseUserId;
 
     await this.userModel.findOneAndUpdate(
       { uid: token },
       { email: body.email },
+    );
+    return { message: 'successs' };
+  }
+
+  async updateUsername(body) {
+    const token = this.firebaseService.firebaseUserId;
+
+    await this.storyModel.updateMany(
+      { uid: token },
+      { username: body.username },
+    );
+
+    await this.userModel.findOneAndUpdate(
+      { uid: token },
+      { username: body.username },
     );
     return { message: 'successs' };
   }

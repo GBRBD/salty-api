@@ -13,6 +13,12 @@ export class UserController {
     return this.userService.createUser(userDto);
   }
 
+  @Get()
+  @UseGuards(AuthGuard)
+  async getUser() {
+    return this.userService.getUser();
+  }
+
   @Get('stories')
   @UseGuards(AuthGuard)
   async getUserStories() {
@@ -22,6 +28,12 @@ export class UserController {
   @Put('updateemail')
   @UseGuards(AuthGuard)
   async updateUserEmail(@Body() body) {
-    return this.userService.updateUserEmail(body);
+    return this.userService.updateEmail(body);
+  }
+
+  @Put('updateusername')
+  @UseGuards(AuthGuard)
+  async updateUsername(@Body() body) {
+    return this.userService.updateUsername(body);
   }
 }
